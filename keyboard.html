@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset=utf-8 />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Nous contacter | Satan Technology</title>
+	
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+	<!-- Internet Explorer -->
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+
+	<!-- Main container -->
+    <div class="container">
+        <div class="row">
+			<div class="col-md-12">
+				<h1>Satan Technology <small>Votre malheur est notre bonheur</small></h1>
+				
+				<div class="panel panel-default">
+					<div class="panel-heading">Remplissez le formulaire ci-dessous pour obtenir notre brochure gratuite !</div>
+					<div class="panel-body">
+						<!-- Phone number form -->
+						<form id="hellform">
+							<div class="form-group">
+								<label for="phoneNumber">Numéro de téléphone :</label>
+								<div class="input-group">
+									<span class="input-group-addon"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span></span>
+									<input disabled="true" type="number" class="form-control" id="phoneNumber" placeholder="Numéro de téléphone">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">Saisissez chaque chiffre de votre numéro avec le clavier ci-dessous :</label>
+								<div class="row form-control-static text-center">
+									<span class="col-xs-4"><a id="keypad_0" class="btn btn-default text-center" href="#" role="button">0</a></span>
+									<span class="col-xs-4"><a id="keypad_1" class="btn btn-default text-center" href="#" role="button">1</a></span>
+									<span class="col-xs-4"><a id="keypad_2" class="btn btn-default text-center" href="#" role="button">2</a></span>
+									<span class="col-xs-12" style="height: 15px"></span>
+									<span class="col-xs-4"><a id="keypad_3" class="btn btn-default text-center" href="#" role="button">3</a></span>
+									<span class="col-xs-4"><a id="keypad_4" class="btn btn-default text-center" href="#" role="button">4</a></span>
+									<span class="col-xs-4 "><a id="keypad_5" class="btn btn-default text-center" href="#" role="button">5</a></span>
+									<span class="col-xs-12" style="height: 15px"></span>
+									<span class="col-xs-4"><a id="keypad_6" class="btn btn-default text-center" href="#" role="button">6</a></span>
+									<span class="col-xs-4"><a id="keypad_7" class="btn btn-default text-center" href="#" role="button">7</a></span>
+									<span class="col-xs-4"><a id="keypad_8" class="btn btn-default text-center" href="#" role="button">8</a></span>
+									<span class="col-xs-12" style="height: 15px"></span>
+									<span class="col-xs-offset-4 col-xs-4"><a id="keypad_9" class="btn btn-default text-center" href="#" role="button">9</a></span>
+								</div>
+							</div>
+							<button id="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Valider</button>
+							<button id="cancel" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Annuler</button>
+						</form>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+ 
+	<!-- Third-Party JavaScript -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<!-- Third-Party JavaScript -->
+	<script>
+		// Avoid submit when pressing enter key (hell patent pending)
+		$(document).ready(function() {
+		    $(window).keydown(function(event){
+			    if(event.keyCode == 13) {
+			        event.preventDefault();
+			        return false;
+			    }
+		    });
+		});
+	
+		// Retrieve all instances
+		form = $('#hellform')
+		phoneNumberInput = $('#phoneNumber')
+		submitButton = $('#submit')
+		cancelButton = $('#cancel')
+		var keypads = [];
+		
+		// Handle digits
+		function shuffleKeypads() {
+			var currentIndex = 10, temporaryValue, randomIndex;
+			while (0 !== currentIndex) {
+				randomIndex = Math.floor(Math.random() * currentIndex);
+				currentIndex -= 1;
+				temporaryValue = keypads[currentIndex].text();
+				keypads[currentIndex].text(keypads[randomIndex].text());
+				keypads[randomIndex].text(temporaryValue);
+			}
+		}
+		function createCallback(digit){
+		    return function(event) {
+				var value = phoneNumberInput.val();
+			    phoneNumberInput.val(value + $(event.target).text());
+				shuffleKeypads();
+		    }
+		}
+		for (var i = 0; i < 10; i++) {
+			var keypad = $('#keypad_' + i);
+			keypads.push(keypad);
+			keypad.click(createCallback(i));
+		}
+		
+		// Handle submit button
+		submitButton.click(function(event) {
+		    var regex = new RegExp("^(0[1-9][0-9]{8})$");
+			if (regex.test(phoneNumberInput.val())) {
+				console.log('Rick Rolled');
+				form.replaceWith('<div class="embed-responsive embed-responsive-16by9">' +
+								 '<iframe class="embed-responsive-item" width="560" height="315" ' +
+								 'src="https://www.youtube.com/embed/DLzxrzFCyOs?autoplay=1" frameborder="0" allowfullscreen></iframe></div>');
+			} else {
+				alert("Numéro de téléphone invalide. Veuillez réessayer.");
+				phoneNumberInput.val(''); // Pure evil and hate
+			}
+			event.preventDefault();
+			return false;
+		});
+		
+		// Handle cancel button
+		cancelButton.click(function(event) {
+		    phoneNumberInput.val('');
+			for (var i = 0; i < 10; i++) {
+				keypads[randomIndex].text(i);
+			}
+			event.preventDefault();
+			return false;
+		});
+	</script>
+</body>
+</html>

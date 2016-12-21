@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset=utf-8 />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Nous contacter | Satan Technology</title>
+	
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+	<!-- Internet Explorer -->
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+
+	<!-- Main container -->
+    <div class="container">
+        <div class="row">
+			<div class="col-md-12">
+				<h1>Satan Technology <small>Votre malheur est notre bonheur</small></h1>
+				
+				<div class="panel panel-default">
+					<div class="panel-heading">Remplissez le formulaire ci-dessous pour obtenir notre brochure gratuite !</div>
+					<div class="panel-body">
+						<!-- Phone number form -->
+						<form id="hellform">
+							<div class="form-group">
+								<label for="phoneNumber">Numéro de téléphone :</label>
+								<div class="input-group">
+									<span class="input-group-addon"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span></span>
+									<input disabled="true" type="number" class="form-control" id="phoneNumber" placeholder="Numéro de téléphone">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">Saisissez chaque chiffre de votre numéro en cliquant sur le bouton "Chance" autant de fois que nécessaire puis sur le bouton "Suivant" :</label>
+								<div class="row form-control-static text-center">
+									<span class="col-xs-offset-5 col-xs-2">Numéro actuel : <span id="currentDigit"></span></span>
+								</div>
+								<div class="row form-control-static  text-center">
+									<span class="col-xs-offset-2 col-xs-3"><a id="rollDiceButton" class="btn btn-default text-center" href="#" role="button">Chance</a></span>
+									<span class="col-xs-offset-2 col-xs-3"><a id="nextDigitButton" class="btn btn-default text-center" href="#" role="button">Suivant</a></span>
+								</div>
+							</div>
+							<button id="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Valider</button>
+							<button id="cancel" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Annuler</button>
+						</form>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+ 
+	<!-- Third-Party JavaScript -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<!-- Third-Party JavaScript -->
+	<script>
+		// Avoid submit when pressing enter key (hell patent pending)
+		$(document).ready(function() {
+		    $(window).keydown(function(event){
+			    if(event.keyCode == 13) {
+			        event.preventDefault();
+			        return false;
+			    }
+		    });
+		});
+	
+		// Retrieve all instances
+		form = $('#hellform')
+		phoneNumberInput = $('#phoneNumber')
+		submitButton = $('#submit')
+		cancelButton = $('#cancel')
+		currentDigit = $('#currentDigit')
+		rollDiceButton = $('#rollDiceButton')
+		nextDigitButton = $('#nextDigitButton')
+		
+		// Handle digit generation
+		function rollDice() {
+			var digit = Math.floor(Math.random() * 10);
+			currentDigit.text(digit.toString());
+		}
+		rollDiceButton.click(rollDice);
+		rollDice()
+		
+		// Handle digit saving
+		nextDigitButton.click(function(event) {
+			var value = phoneNumberInput.val();
+			phoneNumberInput.val(value + currentDigit.text());
+		});
+		
+		// Handle submit button
+		submitButton.click(function(event) {
+		    var regex = new RegExp("^(0[1-9][0-9]{8})$");
+			if (regex.test(phoneNumberInput.val())) {
+				console.log('Rick Rolled');
+				form.replaceWith('<div class="embed-responsive embed-responsive-16by9">' +
+								 '<iframe class="embed-responsive-item" width="560" height="315" ' +
+								 'src="https://www.youtube.com/embed/DLzxrzFCyOs?autoplay=1" frameborder="0" allowfullscreen></iframe></div>');
+			} else {
+				alert("Numéro de téléphone invalide. Veuillez réessayer.");
+				phoneNumberInput.val(''); // Pure evil and hate
+			}
+			event.preventDefault();
+			return false;
+		});
+		
+		// Handle cancel button
+		cancelButton.click(function(event) {
+		    phoneNumberInput.val('');
+			event.preventDefault();
+			return false;
+		});
+	</script>
+</body>
+</html>
